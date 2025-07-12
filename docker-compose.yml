@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  openstack-mcp-server:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - OS_AUTH_URL=${OS_AUTH_URL}
+      - OS_USERNAME=${OS_USERNAME}
+      - OS_PASSWORD=${OS_PASSWORD}
+      - OS_PROJECT_NAME=${OS_PROJECT_NAME}
+      - OS_REGION_NAME=${OS_REGION_NAME}
+    command: >
+      --auth-url ${OS_AUTH_URL}
+      --username ${OS_USERNAME}
+      --password ${OS_PASSWORD}
+      --project ${OS_PROJECT_NAME}
+      --region ${OS_REGION_NAME}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge 
