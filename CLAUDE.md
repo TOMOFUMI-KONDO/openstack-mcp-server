@@ -8,23 +8,9 @@ This is an OpenStack Model Context Protocol (MCP) server written in Python. It p
 
 ## Essential Commands
 
-### Development
 - `make deps` - Install dependencies from requirements.txt
-- `make dev` - Install development dependencies (black, flake8, mypy, pytest)
+- `make run` - Run the server with default parameters
 - `make test` - Run all tests with pytest
-- `make fmt` - Format code with black (required before commits)
-- `make lint` - Run flake8 and mypy linting
-- `make clean` - Clean up Python cache files
-
-### Running
-- `make run` - Show help for the CLI
-- `python openstack_mcp_server.py --auth-url <URL> --username <USER> --password <PASS> --project <PROJECT> --region <REGION>`
-- `make docker-build` - Build Docker image
-- `make docker-compose-up` - Run with Docker Compose
-
-### Testing a single test
-- `pytest -v -k test_function_name`
-- `pytest -v test_openstack_mcp_server.py::TestOpenStackMCPServer::test_connect`
 
 ## Architecture
 
@@ -34,13 +20,13 @@ The server is implemented in `openstack_mcp_server.py` with the following key co
 2. **MCP Server integration** - Uses mcp-server-sdk to expose resources
 3. **Resource Types**:
    - Instances: `openstack://instances/{id}`
-   - Networks: `openstack://networks/{id}`
 4. **Authentication** - Uses openstacksdk for OpenStack API access
 5. **CLI** - Uses Click framework for command-line interface
 
 ## Coding
 
 - Folow format of PEP8
+- Do formatting after editing code with `make fmt`
 
 ## Key Design Patterns
 
@@ -53,11 +39,14 @@ The server is implemented in `openstack_mcp_server.py` with the following key co
 ## OpenStack Credentials
 
 Required for all operations (via CLI args or environment variables):
+
 - `--auth-url` (or `OS_AUTH_URL`) - OpenStack Identity endpoint
-- `--username` (or `OS_USERNAME`)
-- `--password` (or `OS_PASSWORD`)
-- `--project` (or `OS_PROJECT_NAME`)
-- `--region` (or `OS_REGION_NAME`)
+- `--user-domain-name` (or `OS_USER_DOMAIN_NAME`) - OpenStack User Domain Name
+- `--username` (or `OS_USERNAME`) - OpenStack Username
+- `--password` (or `OS_PASSWORD`) - OpenStack Password
+- `--project-domain-id` (or `OS_PROJECT_DOMAIN_ID`) - OpenStack Project Domain ID
+- `--project-name` (or `OS_PROJECT_NAME`) - OpenStack Project Name
+- `--region` (or `OS_REGION_NAME`) - OpenStack Region
 
 ## Dependencies
 
