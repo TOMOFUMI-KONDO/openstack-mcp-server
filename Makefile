@@ -26,4 +26,4 @@ run:
 
 # Run tests
 test:
-	pytest -v
+	pytest -v --cov --cov-branch
