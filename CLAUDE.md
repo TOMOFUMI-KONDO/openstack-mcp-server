@@ -9,6 +9,7 @@ This is an OpenStack Model Context Protocol (MCP) server written in Python. It p
 ## Essential Commands
 
 - `make deps` - Install dependencies from requirements.txt
+- `make fmt` - Format code using Black and isort
 - `make run` - Run the server with default parameters
 - `make test` - Run all tests with pytest
 
@@ -17,21 +18,22 @@ This is an OpenStack Model Context Protocol (MCP) server written in Python. It p
 The server is implemented in `openstack_mcp_server.py` with the following key components:
 
 1. **OpenStackMCPServer class** - Handles OpenStack connections and resource retrieval
-2. **MCP Server integration** - Uses mcp-server-sdk to expose resources
-3. **Resource Types**:
-   - Instances: `openstack://instances/{id}`
-4. **Authentication** - Uses openstacksdk for OpenStack API access
-5. **CLI** - Uses Click framework for command-line interface
+1. **Resource Types**:
+   - Instance:
+   - list: `openstack://servers`
+   - get: `openstack://servers/{server_id}`
+1. **Authentication** - Uses openstacksdk for OpenStack API access
+1. **CLI** - Uses Click framework for command-line interface
 
 ## Coding
 
 - Folow format of PEP8
-- Do formatting after editing code with `make fmt`
+- Do formatting with `make fmt` after editing code
+- Do test with `make test` after editing test code
 
 ## Key Design Patterns
 
-- Uses async handlers for MCP server endpoints
-- Single connection instance reused for all resource queries
+- Uses FastMCP of <https://github.com/modelcontextprotocol/python-sdk> to handle MCP requests
 - Resources returned as JSON-formatted text content
 - Environment variable support for all authentication parameters
 - Error handling logs failures but continues operation
@@ -56,8 +58,7 @@ Required for all operations (via CLI args or environment variables):
 
 ## Important Notes
 
-- The MCP server runs on stdio, not HTTP (unlike the Go version)
 - Always run `make fmt` before committing code changes
-- The `read_resource` method is currently a stub
+- Always run `make test` before committing test code changes
 - Tests use mocking to avoid requiring real OpenStack connections
 - Docker container runs as non-root user for security
