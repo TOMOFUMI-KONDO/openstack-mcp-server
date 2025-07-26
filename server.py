@@ -84,7 +84,7 @@ class OpenStackMCPServer:
             raise
 
 
-@mcp.resource("openstack://servers")
+@mcp.tool()
 def list_servers() -> ServerList:
     """Get all OpenStack compute servers."""
     if not conn:
@@ -112,7 +112,7 @@ def list_servers() -> ServerList:
         raise
 
 
-@mcp.resource("openstack://servers/{server_id}")
+@mcp.tool()
 def get_server(server_id: str) -> Server:
     """Get details of a specific OpenStack server."""
     if not conn:
