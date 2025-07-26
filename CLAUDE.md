@@ -58,7 +58,7 @@ Required for all operations (via CLI args or environment variables):
 
 ## Important Notes
 
-- Always run `make fmt` before committing code changes
-- Always run `make test` before committing test code changes
+- Always run `make fmt` after editing code to ensure consistent formatting
+- Always run `make test` after editing test code to ensure all tests pass
 - Tests use mocking to avoid requiring real OpenStack connections
 - Docker container runs as non-root user for security
