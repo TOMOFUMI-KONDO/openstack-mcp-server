@@ -121,7 +121,7 @@ def get_server(server_id: str) -> Server:
     try:
         server = conn.compute.get_server(server_id)
         if not server:
-            raise Exception(f"Server {server_id} not found")
+            raise Exception(f"Server (id:{server_id}) not found")
 
         return Server(
             id=server.id,
